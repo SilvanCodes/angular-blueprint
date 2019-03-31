@@ -1,31 +1,22 @@
-import { TestBed, async } from '@angular/core/testing';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
+
+  let spectator: Spectator<AppComponent>;
+  const createComponent = createTestComponentFactory(AppComponent);
+
+  beforeEach(() => spectator = createComponent());
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(spectator.component).toBeTruthy();
   });
 
   it(`should have as title 'blueprint'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('blueprint');
+    expect(spectator.component.title).toEqual('blueprint');
   });
 
   it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to blueprint!');
+    expect(spectator.query('h1').textContent).toContain('Welcome to blueprint!');
   });
 });
