@@ -17,7 +17,7 @@
     "build:prod": "ng build --prod && npm run copy:hosting && npm run build:ssr:prod && npm run build:functions",
     "copy:hosting": "cp -r ./dist/blueprint/* ./public && rm ./public/index.html",
     "build:functions": "npm run --prefix functions build",
-    "start:fire": "firebase serve --project test-firebase-9eeed"
+    "start:fire": "firebase serve --project test-firebase-6f780"
   },
   "private": true,
   "dependencies": {

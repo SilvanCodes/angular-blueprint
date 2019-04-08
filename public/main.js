@@ -2041,21 +2041,33 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
   !*** ./src/$$_lazy_route_resource lazy namespace object ***!
   \**********************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-function webpackEmptyAsyncContext(req) {
-	// Here Promise.resolve().then() is used instead of new Promise() to prevent
-	// uncaught exception popping up in devtools
-	return Promise.resolve().then(function() {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
+var map = {
+	"./member/member.module": [
+		"./src/app/member/member.module.ts",
+		"member-member-module"
+	]
+};
+function webpackAsyncContext(req) {
+	var ids = map[req];
+	if(!ids) {
+		return Promise.resolve().then(function() {
+			var e = new Error("Cannot find module '" + req + "'");
+			e.code = 'MODULE_NOT_FOUND';
+			throw e;
+		});
+	}
+	return __webpack_require__.e(ids[1]).then(function() {
+		var id = ids[0];
+		return __webpack_require__(id);
 	});
 }
-webpackEmptyAsyncContext.keys = function() { return []; };
-webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
-module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
+module.exports = webpackAsyncContext;
 
 /***/ }),
 
@@ -2134,6 +2146,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _public_public_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./public/public.module */ "./src/app/public/public.module.ts");
 /* harmony import */ var _public_public_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./public/public.component */ "./src/app/public/public.component.ts");
 /* harmony import */ var _public_login_login_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./public/login/login.component */ "./src/app/public/login/login.component.ts");
+/* harmony import */ var _public_signup_signup_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./public/signup/signup.component */ "./src/app/public/signup/signup.component.ts");
+/* harmony import */ var _core_guards_user_present_guard__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./core/guards/user-present.guard */ "./src/app/core/guards/user-present.guard.ts");
+
+
 
 
 
@@ -2149,9 +2165,12 @@ var routes = [
     { path: '', component: _public_public_component__WEBPACK_IMPORTED_MODULE_9__["PublicComponent"],
         children: [
             { path: '', redirectTo: '/login', pathMatch: 'full' },
-            { path: 'login', component: _public_login_login_component__WEBPACK_IMPORTED_MODULE_10__["LoginComponent"] }
+            { path: 'login', component: _public_login_login_component__WEBPACK_IMPORTED_MODULE_10__["LoginComponent"] },
+            { path: 'signup', component: _public_signup_signup_component__WEBPACK_IMPORTED_MODULE_11__["SignupComponent"] }
         ]
-    }
+    },
+    { path: 'member', canLoad: [_core_guards_user_present_guard__WEBPACK_IMPORTED_MODULE_12__["UserPresentGuard"]], loadChildren: './member/member.module#MemberModule' },
+    { path: '**', redirectTo: '' }
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -2165,7 +2184,7 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"].withServerTransition({ appId: 'serverApp' }),
                 _angular_fire__WEBPACK_IMPORTED_MODULE_2__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].firebase),
                 _angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__["AngularFireAuthModule"],
-                _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"].forRoot(routes, { enableTracing: true }),
+                _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"].forRoot(routes),
                 _public_public_module__WEBPACK_IMPORTED_MODULE_8__["PublicModule"]
             ],
             providers: [],
@@ -2173,6 +2192,52 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/guards/user-present.guard.ts":
+/*!***************************************************!*\
+  !*** ./src/app/core/guards/user-present.guard.ts ***!
+  \***************************************************/
+/*! exports provided: UserPresentGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserPresentGuard", function() { return UserPresentGuard; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/auth.service */ "./src/app/core/services/auth.service.ts");
+
+
+
+
+
+var UserPresentGuard = /** @class */ (function () {
+    function UserPresentGuard(auth, router) {
+        this.auth = auth;
+        this.router = router;
+    }
+    UserPresentGuard.prototype.canLoad = function (route, segments) {
+        var _this = this;
+        return this.auth.user$.pipe(
+        // tap(console.log),
+        Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (user) { return user && user.emailVerified; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (okay) { return !okay ? _this.router.navigate(['/login']) : null; })
+        // redirect to login and pop/up with -verify email please-
+        );
+    };
+    UserPresentGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], UserPresentGuard);
+    return UserPresentGuard;
 }());
 
 
@@ -2198,18 +2263,12 @@ __webpack_require__.r(__webpack_exports__);
 var AuthService = /** @class */ (function () {
     function AuthService(firebaseAuth) {
         this.firebaseAuth = firebaseAuth;
-        this.user = firebaseAuth.user;
+        this.user$ = firebaseAuth.user;
     }
     AuthService.prototype.signup = function (email, password) {
-        this.firebaseAuth
+        return this.firebaseAuth
             .auth
-            .createUserWithEmailAndPassword(email, password)
-            .then(function (value) {
-            console.log('Success!', value);
-        })
-            .catch(function (err) {
-            console.log('Something went wrong:', err.message);
-        });
+            .createUserWithEmailAndPassword(email, password);
     };
     AuthService.prototype.login = function (email, password) {
         this.firebaseAuth
@@ -2247,7 +2306,7 @@ var AuthService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  login works!\n</p>\n\n<form [formGroup]=\"loginForm\">\n  <label>\n    Email\n    <input type=\"text\" formControlName=\"email\">\n  </label>\n\n  <label>\n    Password\n    <input type=\"password\" formControlName=\"password\">\n  </label>\n</form>"
+module.exports = "<p>\n  login works!\n</p>\n\n<form [formGroup]=\"loginForm\" (ngSubmit)=\"login()\">\n  <label>\n    Email\n    <input type=\"text\" formControlName=\"email\">\n  </label>\n\n  <label>\n    Password\n    <input type=\"password\" formControlName=\"password\">\n  </label>\n\n  <button type=\"submit\">Login</button>\n</form>\n\n<a routerLink=\"/signup\">Sign Up</a>"
 
 /***/ }),
 
@@ -2287,7 +2346,6 @@ var LoginComponent = /** @class */ (function () {
             email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](''),
             password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('')
         });
-        this.user$ = auth.user;
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
@@ -2386,6 +2444,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _public_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./public.component */ "./src/app/public/public.component.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _signup_signup_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./signup/signup.component */ "./src/app/public/signup/signup.component.ts");
+
 
 
 
@@ -2400,20 +2460,128 @@ var PublicModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
                 _login_login_component__WEBPACK_IMPORTED_MODULE_3__["LoginComponent"],
-                _public_component__WEBPACK_IMPORTED_MODULE_4__["PublicComponent"]
+                _public_component__WEBPACK_IMPORTED_MODULE_4__["PublicComponent"],
+                _signup_signup_component__WEBPACK_IMPORTED_MODULE_7__["SignupComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_6__["RouterModule"]
-            ],
-            exports: [
-                _login_login_component__WEBPACK_IMPORTED_MODULE_3__["LoginComponent"],
-                _public_component__WEBPACK_IMPORTED_MODULE_4__["PublicComponent"]
             ]
         })
     ], PublicModule);
     return PublicModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/public/signup/signup.component.html":
+/*!*****************************************************!*\
+  !*** ./src/app/public/signup/signup.component.html ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  signup works!\n</p>\n\n<form [formGroup]=\"signupForm\" (ngSubmit)=\"signup()\">\n  <label>\n    Email\n    <input type=\"text\" formControlName=\"email\">\n    <span *ngIf=\"email.errors?.email\">\n      Email is not valid.\n    </span>\n    <span *ngIf=\"email.errors?.required && !email.pristine\">\n      Email is required.\n    </span>\n  </label>\n\n  <form formGroupName=\"passwords\">\n    <label>\n      Password\n      <input type=\"password\" formControlName=\"password\">\n      <span *ngIf=\"password.errors?.minlength\">\n        Password needs to be {{ password.errors.minlength.requiredLength }} characters long.\n      </span>\n      <span *ngIf=\"password.errors?.required && !password.pristine\">\n          Password is required.\n      </span>\n    </label>\n    \n    <label>\n      Confirm Password\n      <input type=\"password\" formControlName=\"passwordConfirm\">\n    </label>\n\n    <span *ngIf=\"passwords.errors?.mismatch && !passwordConfirm.pristine\">\n      Passwords must match.\n    </span>\n    \n  </form>\n\n  <button type =\"submit\" [disabled]=\"!signupForm.valid\">Sign Up</button>\n</form>\n\n<p>\n  Form Status: {{ signupForm.status }}\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/public/signup/signup.component.scss":
+/*!*****************************************************!*\
+  !*** ./src/app/public/signup/signup.component.scss ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3B1YmxpYy9zaWdudXAvc2lnbnVwLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/public/signup/signup.component.ts":
+/*!***************************************************!*\
+  !*** ./src/app/public/signup/signup.component.ts ***!
+  \***************************************************/
+/*! exports provided: SignupComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupComponent", function() { return SignupComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _core_services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../core/services/auth.service */ "./src/app/core/services/auth.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+
+var SignupComponent = /** @class */ (function () {
+    function SignupComponent(auth, fb, router) {
+        this.auth = auth;
+        this.fb = fb;
+        this.router = router;
+        this.signupForm = this.fb.group({
+            email: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email]],
+            passwords: this.fb.group({
+                password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(8)]],
+                passwordConfirm: ['']
+            }, { validators: this.matching })
+        });
+    }
+    SignupComponent.prototype.ngOnInit = function () {
+    };
+    SignupComponent.prototype.signup = function () {
+        var _this = this;
+        console.log('sigunup with', this.email.value, this.password.value);
+        this.auth.signup(this.email.value, this.password.value)
+            .then(function (value) { return _this.router.navigate(['/member']); })
+            .catch(function (err) {
+            console.log('Something went wrong:', err.message);
+        });
+    };
+    SignupComponent.prototype.matching = function (group) {
+        var valid = group.get('password').value === group.get('passwordConfirm').value;
+        if (valid)
+            return null;
+        return {
+            mismatch: true
+        };
+    };
+    Object.defineProperty(SignupComponent.prototype, "email", {
+        get: function () { return this.signupForm.get('email'); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SignupComponent.prototype, "password", {
+        get: function () { return this.signupForm.get('passwords').get('password'); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SignupComponent.prototype, "passwords", {
+        get: function () { return this.signupForm.get('passwords'); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SignupComponent.prototype, "passwordConfirm", {
+        get: function () { return this.signupForm.get('passwords').get('passwordConfirm'); },
+        enumerable: true,
+        configurable: true
+    });
+    SignupComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-signup',
+            template: __webpack_require__(/*! ./signup.component.html */ "./src/app/public/signup/signup.component.html"),
+            styles: [__webpack_require__(/*! ./signup.component.scss */ "./src/app/public/signup/signup.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_core_services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+    ], SignupComponent);
+    return SignupComponent;
 }());
 
 
@@ -2436,12 +2604,12 @@ __webpack_require__.r(__webpack_exports__);
 var environment = {
     production: false,
     firebase: {
-        apiKey: 'AIzaSyAOvUNTRlPbj3NUagW1P0-oHq6e2FN2NZQ',
-        authDomain: 'test-firebase-9eeed.firebaseapp.com',
-        databaseURL: 'https://test-firebase-9eeed.firebaseio.com',
-        projectId: 'test-firebase-9eeed',
-        storageBucket: 'test-firebase-9eeed.appspot.com',
-        messagingSenderId: '850298266991'
+        apiKey: 'AIzaSyAf4-Hs5p5itR0LVR__Kg-iPQLYIWRKk6I',
+        authDomain: 'test-firebase-6f780.firebaseapp.com',
+        databaseURL: 'https://test-firebase-6f780.firebaseio.com',
+        projectId: 'test-firebase-6f780',
+        storageBucket: 'test-firebase-6f780.appspot.com',
+        messagingSenderId: '988850458190'
     }
 };
 /*
