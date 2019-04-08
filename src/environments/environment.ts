@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyD0HG2fqg0yGX-XJ-8tIhRwam4qqYf1-2c',
-    authDomain: 'bubbly-observer-231401.firebaseapp.com',
-    databaseURL: 'https://bubbly-observer-231401.firebaseio.com',
-    projectId: 'bubbly-observer-231401',
-    storageBucket: 'bubbly-observer-231401.appspot.com',
-    messagingSenderId: '581751481083'
+    apiKey: 'AIzaSyAOvUNTRlPbj3NUagW1P0-oHq6e2FN2NZQ',
+    authDomain: 'test-firebase-9eeed.firebaseapp.com',
+    databaseURL: 'https://test-firebase-9eeed.firebaseio.com',
+    projectId: 'test-firebase-9eeed',
+    storageBucket: 'test-firebase-9eeed.appspot.com',
+    messagingSenderId: '850298266991'
   }
 };
 

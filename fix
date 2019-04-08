@@ -1,0 +1,36 @@
+
+> blueprint@0.0.0 lint /home/silvan/projects/angular/blueprint
+> ng lint
+
+Linting "blueprint"...
+
+ERROR: /home/silvan/projects/angular/blueprint/src/app/app.module.ts[8, 8]: A space is required after '{'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/app.module.ts[8, 28]: A space is required before '}'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/app.server.module.ts[3, 8]: A space is required after '{'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/app.server.module.ts[3, 26]: A space is required before '}'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[1, 8]: A space is required after '{'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[1, 37]: A space is required before '}'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[2, 8]: A space is required after '{'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[2, 63]: A space is required before '}'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[3, 8]: A space is required after '{'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[3, 16]: A space is required before '}'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[4, 8]: A space is required after '{'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[4, 16]: A space is required before '}'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[5, 1]: trailing whitespace
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[8, 1]: trailing whitespace
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[10, 1]: trailing whitespace
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[19, 29]: A space is required after '{'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/interceptors/universal.interceptor.ts[19, 41]: A space is required before '}'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/services/auth.service.ts[2, 8]: A space is required after '{'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/services/auth.service.ts[2, 19]: A space is required before '}'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/services/auth.service.ts[3, 8]: A space is required after '{'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/services/auth.service.ts[3, 24]: A space is required before '}'
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/services/auth.service.ts[25, 45]: missing whitespace
+ERROR: /home/silvan/projects/angular/blueprint/src/app/core/services/auth.service.ts[37, 45]: missing whitespace
+ERROR: /home/silvan/projects/angular/blueprint/src/app/public/login/login.component.spec.ts[11, 21]: There should be no space after "["
+ERROR: /home/silvan/projects/angular/blueprint/src/app/public/login/login.component.spec.ts[11, 38]: There should be no space before "]"
+
+Linting "blueprint-e2e"...
+
+
+All files pass linting.

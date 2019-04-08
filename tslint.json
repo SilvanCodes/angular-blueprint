@@ -74,6 +74,12 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true,
-    "object-curly-spacing": ["error", "always"]
+    "object-curly-spacing": [true, "always"],
+    "no-constant-condition": true,
+    "valid-jsdoc": [true],
+    "array-bracket-spacing": [true, "never", {
+      "arraysInArrays": true
+    }],
+    "curly": [true, "ignore-same-line"]
   }
 }
