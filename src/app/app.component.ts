@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public title = 'blueprint';
+  
+  constructor() {
+    console.log(AppComponent.name);
+  }
 }

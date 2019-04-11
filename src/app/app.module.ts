@@ -11,6 +11,7 @@ import { PublicComponent } from './public/public.component';
 import { LoginComponent } from './public/login/login.component';
 import { SignupComponent } from './public/signup/signup.component';
 import { UserPresentGuard } from './core/guards/user-present.guard';
+import { CoreModule } from './core/core.module';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     RouterModule.forRoot(routes),
+    CoreModule,
     PublicModule
   ],
   providers: [],
