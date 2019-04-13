@@ -1,12 +1,15 @@
-import { TestBed } from '@angular/core/testing';
-
 import { AuthService } from './auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { createService } from '@netbasal/spectator';
 
 describe('AuthService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  const spectator = createService<AuthService>({
+    service: AuthService,
+    mocks: [AngularFireAuth]
+  });
 
   it('should be created', () => {
-    const service: AuthService = TestBed.get(AuthService);
+    const service: AuthService = spectator.get<AuthService>(AuthService);
     expect(service).toBeTruthy();
   });
 });

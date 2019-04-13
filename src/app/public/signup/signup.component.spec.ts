@@ -1,25 +1,28 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SignupComponent } from './signup.component';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { Router } from '@angular/router';
 
 describe('SignupComponent', () => {
-  let component: SignupComponent;
-  let fixture: ComponentFixture<SignupComponent>;
+  let spectator: Spectator<SignupComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [SignupComponent]
-    })
-    .compileComponents();
-  }));
+  const formBuilder: FormBuilder = new FormBuilder();
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SignupComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  const createComponent = createTestComponentFactory({
+    component: SignupComponent,
+    imports: [ReactiveFormsModule],
+    mocks: [AuthService, Router],
+    providers: [
+      {
+        provide: FormBuilder, useValue: formBuilder
+      }
+    ]
   });
 
+  beforeEach(() => spectator = createComponent());
+
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(spectator.component).toBeTruthy();
   });
 });

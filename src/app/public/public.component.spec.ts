@@ -1,25 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PublicComponent } from './public.component';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PublicComponent', () => {
-  let component: PublicComponent;
-  let fixture: ComponentFixture<PublicComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [PublicComponent]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PublicComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  let spectator: Spectator<PublicComponent>;
+  const createComponent = createTestComponentFactory({
+    component: PublicComponent,
+    imports: [RouterTestingModule]
   });
 
+  beforeEach(() => spectator = createComponent());
+
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(spectator.component).toBeTruthy();
   });
 });

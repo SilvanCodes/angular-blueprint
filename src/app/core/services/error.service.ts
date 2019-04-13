@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 
-
-class Error {
-  source: string;
-  type: ErrorLevel;
-  message: string;
-  payload: object;
-}
-
-enum ErrorLevel {
+export enum ErrorLevel {
   Warning,
   Critical
+}
+
+export class Error {
+  constructor(
+    public readonly source: string,
+    public readonly message: string,
+    public readonly payload?: object,
+    public readonly type = ErrorLevel.Warning,
+  ) {}
 }
 
 @Injectable({

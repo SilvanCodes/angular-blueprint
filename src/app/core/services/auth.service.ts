@@ -8,7 +8,7 @@ import * as firebase from 'firebase';
 })
 export class AuthService {
 
-  user$: Observable<firebase.User>;
+  public user$: Observable<firebase.User>;
 
   constructor(private firebaseAuth: AngularFireAuth) {
     this.user$ = firebaseAuth.user;
