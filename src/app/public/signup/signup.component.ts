@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-signup',
@@ -22,16 +23,11 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   public signup() {
     console.log('sigunup with', this.email.value, this.password.value);
-    this.auth.signup(this.email.value, this.password.value)
-    .then(value => this.router.navigate(['/member']))
-    .catch(err => {
-      console.log('Something went wrong:', err.message);
-    });
+    this.auth.signup(this.email.value, this.password.value);
   }
 
   private matching(group: FormGroup) {

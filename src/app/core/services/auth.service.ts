@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
+import { ErrorService, Error } from './error.service';
+import { shareReplay, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,31 +14,61 @@ export class AuthService {
 
   public user$: Observable<firebase.User>;
 
-  constructor(private firebaseAuth: AngularFireAuth) {
-    this.user$ = firebaseAuth.user;
+  constructor(
+    private firebaseAuth: AngularFireAuth,
+    private error: ErrorService,
+    private router: Router
+  ) {
+    this.user$ = firebaseAuth.user.pipe(
+      shareReplay(1)
+    );
+    this.user$.pipe(
+      tap(user => this.router.navigate([!!user ? '/member' : '/login']))
+    ).subscribe();
   }
 
-  signup(email: string, password: string): Promise<firebase.auth.UserCredential> {
-    return this.firebaseAuth
+  public signup(email: string, password: string) {
+    this.firebaseAuth
       .auth
-      .createUserWithEmailAndPassword(email, password);
+      .createUserWithEmailAndPassword(email, password)
+      .then() // result gets communicated over user$ observable
+      .catch(err => this.error.pushError(
+          new Error(
+            AuthService.name,
+            'Could not sign you up.',
+            err
+          )
+        )
+      );
   }
 
-  login(email: string, password: string) {
+  public login(email: string, password: string) {
     this.firebaseAuth
       .auth
       .signInWithEmailAndPassword(email, password)
-      .then(value => {
-        console.log('Nice, it worked!');
-      })
-      .catch(err => {
-        console.log('Something went wrong:', err.message);
-      });
+      .then() // result gets communicated over user$ observable
+      .catch(err => this.error.pushError(
+          new Error(
+            AuthService.name,
+            'Could not log you in.',
+            err
+          )
+        )
+      );
   }
 
-  logout() {
+  public logout() {
     this.firebaseAuth
       .auth
-      .signOut();
+      .signOut()
+      .then() // result gets communicated over user$ observable
+      .catch(err => this.error.pushError(
+          new Error(
+            AuthService.name,
+            'Could not log you out.',
+            err
+          )
+        )
+      );
   }
 }

@@ -22,7 +22,7 @@ const routes: Routes = [
       { path: 'signup', component: SignupComponent }
     ]
   },
-  { path: 'member', canLoad: [UserPresentGuard], loadChildren: './member/member.module#MemberModule' },
+  { path: 'member',/*  canLoad: [UserPresentGuard], */ loadChildren: './member/member.module#MemberModule' },
   { path: '**', redirectTo: '' }
 ];
 
@@ -34,7 +34,7 @@ const routes: Routes = [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { enableTracing: true }),
     CoreModule,
     PublicModule
   ],

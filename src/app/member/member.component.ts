@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../core/services/auth.service';
+
 
 @Component({
   selector: 'app-member',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemberComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
+    console.log('hello from member');
   }
 
+  public logut() {
+    this.auth.logout();
+  }
 }

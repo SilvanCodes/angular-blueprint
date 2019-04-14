@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ErrorService, Error } from './core/services/error.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -8,6 +10,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public title = 'blueprint';
+  public errors: Observable<Error>;
 
-  constructor() {}
+  constructor(private error: ErrorService) {
+    this.errors = error.getAllErrors();
+  }
 }
