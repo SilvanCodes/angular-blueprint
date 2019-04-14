@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  member works!\n</p>\n"
+module.exports = "<p>\n  member works!\n</p>\n\n<button (click)=\"logut()\">Logout</button>\n"
 
 /***/ }),
 
@@ -34,12 +34,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MemberComponent", function() { return MemberComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _core_services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/services/auth.service */ "./src/app/core/services/auth.service.ts");
+
 
 
 var MemberComponent = /** @class */ (function () {
-    function MemberComponent() {
+    function MemberComponent(auth) {
+        this.auth = auth;
     }
     MemberComponent.prototype.ngOnInit = function () {
+        console.log('hello from member');
+    };
+    MemberComponent.prototype.logut = function () {
+        this.auth.logout();
     };
     MemberComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -47,7 +54,7 @@ var MemberComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./member.component.html */ "./src/app/member/member.component.html"),
             styles: [__webpack_require__(/*! ./member.component.scss */ "./src/app/member/member.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_core_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]])
     ], MemberComponent);
     return MemberComponent;
 }());
