@@ -22,6 +22,8 @@ export class AuthService {
     this.user$ = firebaseAuth.user.pipe(
       shareReplay(1)
     );
+    // this subscription holds the user in correct place all the time
+    // TODO: maybe dedup navigate to member on user-refresh
     this.user$.pipe(
       tap(user => this.router.navigate([!!user ? '/member' : '/login']))
     ).subscribe();

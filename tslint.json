@@ -80,6 +80,7 @@
     "array-bracket-spacing": [true, "never", {
       "arraysInArrays": true
     }],
-    "curly": [true, "ignore-same-line"]
+    "curly": [true, "ignore-same-line"],
+    "no-unused-variable": { "severity": "warning" }
   }
 }

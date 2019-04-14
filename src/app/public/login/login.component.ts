@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
-import { filter, tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,7 +14,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl('')
   });
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit() {}
 

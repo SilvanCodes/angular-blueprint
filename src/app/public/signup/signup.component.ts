@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
-import { Router } from '@angular/router';
-import { filter, tap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-signup',
@@ -20,8 +19,8 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private fb: FormBuilder,
-    private router: Router) { }
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {}
 

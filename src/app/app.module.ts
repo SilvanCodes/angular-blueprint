@@ -10,8 +10,8 @@ import { PublicModule } from './public/public.module';
 import { PublicComponent } from './public/public.component';
 import { LoginComponent } from './public/login/login.component';
 import { SignupComponent } from './public/signup/signup.component';
-import { UserPresentGuard } from './core/guards/user-present.guard';
 import { CoreModule } from './core/core.module';
+import { UserPresentGuard } from './core/guards/user-present.guard';
 
 
 const routes: Routes = [
@@ -22,7 +22,7 @@ const routes: Routes = [
       { path: 'signup', component: SignupComponent }
     ]
   },
-  { path: 'member',/*  canLoad: [UserPresentGuard], */ loadChildren: './member/member.module#MemberModule' },
+  { path: 'member',  canLoad: [UserPresentGuard], loadChildren: './member/member.module#MemberModule' },
   { path: '**', redirectTo: '' }
 ];
 

@@ -13,6 +13,6 @@ export class AppComponent {
   public errors: Observable<Error>;
 
   constructor(private error: ErrorService) {
-    this.errors = error.getAllErrors();
+    this.errors = this.error.getAllErrors();
   }
 }
